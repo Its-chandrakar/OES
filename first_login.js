@@ -2,17 +2,27 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './floating-labels.css';
 import './first_login.css';
+import axios from 'axios';
 
-class First_Login extends React.Component{
+class FirstLogin extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             Ticket_No:'',
-            Pass:''
+            Email:'',
         };
     }
-    handlePass(event){
-        this.setState({Pass:this.target.value})
+    handleEmail = (event) => {
+        this.setState({Email:event.target.value})
+    }
+    handleTicket = (event) => {
+        this.setState({Ticket_No:event.target.value})
+    }
+    handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(this.state.Ticket_No);
+        console.log(this.state.Email);
+        
     }
     render(){
         return (
@@ -27,24 +37,23 @@ class First_Login extends React.Component{
                 <div className="container">
                 <h2>Login</h2>
                 <p style={{marginTop:"-10px"}}>Enter your Login Credentials</p>
-                <p><i className="far fa-envelope"></i></p>
-                <form>
+                <form onSubmit={this.handleSubmit}>
                 <div id="inp1" className="form-label-group">
-                <input onCLick={() => this.handleTicket} type="email" id="inputEmail" className="form-control" placeholder="Email address" required autofocus />
-                <label for="inputEmail">Enter Ticket Number</label>
+                <input onChange={this.handleTicket} type="text" id="inputTicket" name="Ticket" className="form-control" placeholder="HallTicket Number" required autofocus />
+                <label htmlFor="inputTicket">Enter Ticket Number</label>
                 </div> 
                 <div id="inp2" className="form-label-group">
-                <input onClick={() => this.handlePass} type="password" id="inputPassword" className="form-control" placeholder="Password" required />
-                <label for="inputPassword">Password</label>
+                <input onChange={this.handleEmail} type="email" id="inputEmail" name="Email" className="form-control" placeholder="Email" required />
+                <label htmlFor="inputEmail">Enter Email</label>
                 </div>
+                <button id="btn1" type="submit" className="btn btn-primary btn-block">Login</button>
                 </form>
                 <br />
-            <button id="btn1" type="submit" className="btn btn-primary btn-block">Login</button>
             </div>
-            </div>
+            </div> 
             </div>
             </div>
         )
     }
 }
-export default First_Login;
+export default FirstLogin;
